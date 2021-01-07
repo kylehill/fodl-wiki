@@ -1,0 +1,96 @@
+.container {
+  padding: 20px;
+}
+
+.c3 {
+  width: calc(100% / 3);
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+}
+
+@media (max-width: 896px) {
+  .c3 {
+    width: 100%;
+    margin: 10px auto;
+    max-width: 600px;
+    display: block;
+  }
+
+  .champions {
+    width: 80%;
+    margin: 0px auto;
+  }
+}
+
+.champTitle {
+  font-size: 20px;
+  width: 120px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.divTitle {
+  font-size: 18px;
+  width: 100px;
+  display: inline-block;
+}
+
+.champ {
+  font-size: 20px;
+}
+
+.leaguewide {
+  width: 80%;
+  margin: 0px auto;
+  border-collapse: collapse;
+}
+
+.leaguewide th {
+  font-size: 20px;
+}
+
+.leaguewide th,
+.leaguewide td {
+  padding: 5px 0;
+}
+
+.leaguewide td:last-child {
+  font-weight: bold;
+  text-align: right;
+}
+
+.leaguewide tr:not(:last-child) td {
+  border-bottom: solid 1px #999;
+}
+
+.leaders {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.leaders table {
+  width: 100%;
+}
+
+.leaders button {
+  border: solid 1px #731c17;
+  background: white;
+  color: #333;
+  font-weight: bold;
+  padding: 6px;
+  width: 60px;
+  border-radius: 4px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.leaders button.active {
+  color: white;
+  background: #731c17;
+}
+
+.leaders td:last-child {
+  text-align: right;
+}

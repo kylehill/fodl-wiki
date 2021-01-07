@@ -1,0 +1,33 @@
+.filter {
+  width: 100%;
+  border: solid 1px black;
+  border-radius: 10px;
+}
+
+.header {
+  background: #eaecf0;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.count {
+  font-style: italic;
+}
+
+.container {
+  padding: 10px;
+}
+
+.option {
+  display: inline-block;
+  width: 150px;
+}
+
+.option input {
+  margin-right: 8px;
+}
+
+.link {
+  text-decoration: underline;
+}

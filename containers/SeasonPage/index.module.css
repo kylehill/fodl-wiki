@@ -1,0 +1,37 @@
+.column {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+@media (max-width: 896px) {
+  .column {
+    width: 100%;
+    margin: 10px auto;
+    max-width: 600px;
+    display: block;
+  }
+
+  .column:first-child {
+    border-bottom: double 3px black;
+  }
+}
+
+.table-container {
+  padding: 0px 40px;
+  margin-bottom: 40px;
+}
+
+.bracketContainer {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 20px;
+}
+
+.bracketContainer:not(:first-child) {
+  margin-top: 20px;
+}
+
+.bracketContainer:not(:last-child) {
+  border-bottom: solid 1px #aaa;
+}

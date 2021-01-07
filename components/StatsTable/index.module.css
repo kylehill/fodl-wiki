@@ -1,0 +1,52 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0px auto;
+}
+
+.table .sectionRight:not(:last-child) {
+  border-right: solid 1px #333;
+}
+
+.table tr:nth-child(even) td {
+  background-color: #eee;
+}
+
+.table td,
+.table th {
+  text-align: center;
+  padding: 4px 10px;
+}
+
+.table thead tr:last-child th {
+  cursor: pointer;
+}
+
+.table td {
+  border-left: solid 1px #aaa;
+  border-right: solid 1px #aaa;
+}
+
+.table td:first-child {
+  text-align: right;
+}
+
+.table td a {
+  text-align: left;
+  display: block;
+}
+
+.table tr:last-child th {
+  border-left: solid 1px #aaa;
+  border-right: solid 1px #aaa;
+
+  border-bottom: solid 1px #aaa;
+}
+
+.active {
+  background: #cee;
+}
+
+.table tr:nth-child(even) td.active {
+  background-color: lightblue;
+}

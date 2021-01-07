@@ -1,0 +1,67 @@
+.stats {
+  border-collapse: collapse;
+  width: 800px;
+}
+
+.footerCell {
+  height: 30px;
+  padding: 0 10px;
+  text-align: right;
+  min-width: 70px;
+}
+
+.cell {
+  text-align: right;
+  height: 30px;
+  min-width: 70px;
+  padding: 0 10px;
+  border-bottom: solid 1px #999;
+  border-right: solid 1px #ccc;
+}
+
+.header {
+  border-bottom: solid 1px black;
+}
+
+.footer {
+  border-top: solid 1px black;
+}
+
+.rank {
+  text-align: center;
+}
+
+.small {
+  min-width: 40px;
+  text-align: center;
+}
+
+.⬇ {
+  background-color: lightpink;
+  text-align: center;
+  border-right: none;
+  min-width: 40px;
+  padding: 0;
+}
+
+.⬆ {
+  background-color: lightgreen;
+  text-align: center;
+  border-right: none;
+  min-width: 40px;
+  padding: 0;
+}
+
+.★ {
+  background: lightgoldenrodyellow;
+  text-align: center;
+  border-right: none;
+  min-width: 40px;
+  padding: 0;
+}
+
+.last {
+  border-right: none;
+  min-width: 40px;
+  padding: 0;
+}

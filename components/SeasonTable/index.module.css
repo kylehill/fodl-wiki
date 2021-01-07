@@ -1,0 +1,48 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table td,
+.table th {
+  border: solid 1px gray;
+  height: 32px;
+  padding: 0 6px;
+  font-size: 16px;
+}
+
+.table th {
+  background-color: #eaecf0;
+}
+
+.table td {
+  text-align: center;
+}
+
+.outcomeBlue {
+  background-color: #ffffbb;
+}
+
+.outcomeRed {
+  background-color: #ffbbbb;
+}
+
+.outcomeGreen {
+  background-color: #bbf3bb;
+}
+
+.outcomeLGreen {
+  background-color: #bbf3ff;
+}
+
+.outcomeLRed {
+  background-color: #ffcccc;
+}
+
+.points {
+  font-weight: bold;
+}
+
+td.player {
+  text-align: left;
+}
