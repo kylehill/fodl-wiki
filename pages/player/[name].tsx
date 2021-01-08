@@ -11,13 +11,21 @@ import { Player } from "types/player";
 type Props = {
   seasonRecords: PlayerSeason[];
   aggregatedRecords: GraphStats[];
-  playerRecord?: Player;
+  playerRecord: { playerData: true; player: Player } | { playerData: false };
 };
 
 const Route = ({ seasonRecords, aggregatedRecords, playerRecord }: Props) => {
-  return (
-    <PlayerPage aggregated={aggregatedRecords} records={seasonRecords} player={playerRecord} />
-  );
+  if (playerRecord.playerData) {
+    return (
+      <PlayerPage
+        aggregated={aggregatedRecords}
+        records={seasonRecords}
+        player={playerRecord.player}
+      />
+    );
+  }
+
+  return <PlayerPage aggregated={aggregatedRecords} records={seasonRecords} />;
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -25,7 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const data = await getCsvData();
   const seasonRecords = data.filter((row) => convertNameToSlug(row.player) === playerName);
   const players = await getCsvPlayers();
-  const playerRecord = players.filter((row) => convertNameToSlug(row.name) === playerName);
+  const playerRecord = players.filter((row) => convertNameToSlug(row.name) === playerName)[0];
 
   const aggregatedSeasons = data.reduce((mem, record) => {
     if (!record.season) {
@@ -55,7 +63,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       seasonRecords,
       aggregatedRecords,
-      playerRecord,
+      playerRecord: playerRecord
+        ? { playerData: true, player: playerRecord }
+        : { playerData: false },
     },
   };
 };
