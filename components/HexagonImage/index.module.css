@@ -1,0 +1,17 @@
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.hexagon {
+  clip-path: polygon(50% 0, 100% 25%, 100% 76%, 50% 100%, 0 75%, 0 25%);
+  width: 100%;
+}
+
+.picture {
+  height: calc(25vw - 40px);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

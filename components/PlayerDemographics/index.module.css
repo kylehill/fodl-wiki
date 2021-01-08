@@ -1,0 +1,64 @@
+.container {
+  padding: 20px;
+  padding-top: 0;
+  color: white;
+  font-size: 0;
+}
+
+.player {
+  font-size: 28px;
+}
+
+.stars {
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+
+.field {
+  border-bottom: solid 1px white;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.fieldTitle {
+  background: white;
+  color: #333;
+  display: inline-block;
+  padding: 0 4px;
+  text-transform: uppercase;
+  font-family: "Roboto Mono", monospace;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.hashtag {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: "Roboto Mono", monospace;
+}
+
+.twitter {
+  margin-top: 24px;
+  font-size: 18px;
+  text-align: center;
+  line-height: 34px;
+}
+
+.twitter a {
+  color: white;
+  font-family: "Roboto Mono", monospace;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.twitter img {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 6px;
+  padding-top: 4px;
+}

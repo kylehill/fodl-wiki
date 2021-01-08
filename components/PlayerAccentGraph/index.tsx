@@ -10,6 +10,14 @@ type Props = {
 };
 
 const PlayerAccentGraph = ({ records, aggregated }: Props) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = React.useState(0);
+  React.useEffect(() => {
+    if (ref.current) {
+      setContainerWidth(ref.current.offsetWidth);
+    }
+  }, [ref.current]);
+
   const chartData = aggregated.map((season) => {
     const playerSeason = records.find((record) => season.season === record.season);
     const baseline = {
@@ -35,69 +43,71 @@ const PlayerAccentGraph = ({ records, aggregated }: Props) => {
   });
 
   return (
-    <LineChart
-      width={800}
-      height={250}
-      data={chartData}
-      margin={{ top: 20, bottom: 20, left: 30, right: 10 }}
-    >
-      <YAxis
-        yAxisId="left"
-        domain={[(min) => min * 0.8, (max) => max * 1.2]}
-        tick={false}
-        width={1}
-        axisLine={false}
-      />
-      <YAxis
-        yAxisId="right"
-        domain={[(min) => min * 0.8, (max) => max * 1.2]}
-        tick={false}
-        axisLine={false}
-        width={0}
-      />
-      <YAxis
-        yAxisId="hidden"
-        domain={[(min) => min * 0.8, (max) => max * 1.2]}
-        tick={false}
-        axisLine={false}
-        width={0}
-      />
-      <XAxis tickLine={false} dataKey="season" tick={false} axisLine={false} />
-      <Tooltip contentStyle={{ fontSize: 12 }} itemStyle={{ margin: 0, padding: 0 }} />
-      <Line yAxisId="left" type="monotone" dataKey="3DA" stroke="red" strokeWidth={2} />
-      <Line
-        yAxisId="left"
-        type="monotone"
-        dataKey="Lg 3DA"
-        stroke="red"
-        strokeWidth={1.5}
-        strokeDasharray="3, 3"
-        dot={false}
-        activeDot={false}
-      />
-      <Line yAxisId="right" type="monotone" dataKey="MPR" stroke="blue" strokeWidth={2} />
-      <Line
-        yAxisId="right"
-        type="monotone"
-        dataKey="Lg MPR"
-        stroke="blue"
-        strokeWidth={1.5}
-        strokeDasharray="3, 3"
-        dot={false}
-        activeDot={false}
-      />
-      <Line yAxisId="hidden" type="monotone" dataKey="CO%" stroke="green" strokeWidth={2} />
-      <Line
-        yAxisId="hidden"
-        type="monotone"
-        dataKey="Lg CO%"
-        stroke="green"
-        strokeWidth={1.5}
-        strokeDasharray="3, 3"
-        dot={false}
-        activeDot={false}
-      />
-    </LineChart>
+    <div ref={ref}>
+      <LineChart
+        width={containerWidth}
+        height={250}
+        data={chartData}
+        margin={{ top: 20, bottom: 20, left: 30, right: 30 }}
+      >
+        <YAxis
+          yAxisId="left"
+          domain={[(min) => min * 0.8, (max) => max * 1.2]}
+          tick={false}
+          width={1}
+          axisLine={false}
+        />
+        <YAxis
+          yAxisId="right"
+          domain={[(min) => min * 0.8, (max) => max * 1.2]}
+          tick={false}
+          axisLine={false}
+          width={0}
+        />
+        <YAxis
+          yAxisId="hidden"
+          domain={[(min) => min * 0.8, (max) => max * 1.2]}
+          tick={false}
+          axisLine={false}
+          width={0}
+        />
+        <XAxis tickLine={false} dataKey="season" tick={false} axisLine={false} />
+        <Tooltip contentStyle={{ fontSize: 12 }} itemStyle={{ margin: 0, padding: 0 }} />
+        <Line yAxisId="left" type="monotone" dataKey="3DA" stroke="red" strokeWidth={2} />
+        <Line
+          yAxisId="left"
+          type="monotone"
+          dataKey="Lg 3DA"
+          stroke="red"
+          strokeWidth={1.5}
+          strokeDasharray="3, 3"
+          dot={false}
+          activeDot={false}
+        />
+        <Line yAxisId="right" type="monotone" dataKey="MPR" stroke="blue" strokeWidth={2} />
+        <Line
+          yAxisId="right"
+          type="monotone"
+          dataKey="Lg MPR"
+          stroke="blue"
+          strokeWidth={1.5}
+          strokeDasharray="3, 3"
+          dot={false}
+          activeDot={false}
+        />
+        <Line yAxisId="hidden" type="monotone" dataKey="CO%" stroke="green" strokeWidth={2} />
+        <Line
+          yAxisId="hidden"
+          type="monotone"
+          dataKey="Lg CO%"
+          stroke="green"
+          strokeWidth={1.5}
+          strokeDasharray="3, 3"
+          dot={false}
+          activeDot={false}
+        />
+      </LineChart>
+    </div>
   );
 };
 

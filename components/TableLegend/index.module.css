@@ -1,0 +1,38 @@
+.outcome {
+  line-height: 30px;
+  display: inline-block;
+  width: 50%;
+}
+
+.outcome span {
+  width: 20px;
+  display: inline-block;
+  height: 30px;
+  margin-right: 6px;
+  border: solid 1px black;
+}
+
+.outcome div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.outcomeYellow {
+  background-color: #ffffbb;
+}
+
+.outcomeRed {
+  background-color: #ffaaaa;
+}
+
+.outcomeGreen {
+  background-color: #bbf3bb;
+}
+
+.outcomeBlue {
+  background-color: #bbf3ff;
+}
+
+.outcomeLRed {
+  background-color: #ffdddd;
+}

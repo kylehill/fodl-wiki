@@ -16,6 +16,10 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap"
             rel="stylesheet"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;700&display=swap"
+            rel="stylesheet"
+          ></link>
         </Head>
         <Main />
         <NextScript />

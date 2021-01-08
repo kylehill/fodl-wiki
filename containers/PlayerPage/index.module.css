@@ -1,0 +1,46 @@
+.columnLeft {
+  width: 25%;
+  background: #333;
+  height: 100vh;
+  box-shadow: 2px 2px #111;
+  position: absolute;
+}
+
+.columnRight {
+  width: 75%;
+  margin-left: 25%;
+  padding: 0 30px;
+}
+
+.bio {
+  font-size: 20px;
+  line-height: 30px;
+  white-space: pre-line;
+  padding: 30px 20px;
+}
+
+.logo {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.text {
+  font-size: 18px;
+  font-family: "Roboto Mono", monospace;
+  font-weight: bold;
+  padding: 4px 10px;
+  background: #333;
+  color: white;
+  display: inline-block;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (max-height: 850px) {
+  .logo {
+    display: none;
+  }
+}

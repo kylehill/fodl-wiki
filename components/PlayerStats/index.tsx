@@ -44,43 +44,54 @@ const StatsRow = (season: PlayerSeason, isFooter = false): React.ReactNode => {
 
 const PlayerStats = ({ aggregate, records }: Props) => {
   return (
-    <table className={styles.stats}>
-      <thead>
-        <tr className={styles.header}>
-          <th>Season</th>
-          <th>Division</th>
-          <th>Rank</th>
-          <th>Matches</th>
-          <th>Legs</th>
-          <th>BP</th>
-          <th>MPR</th>
-          <th>3DA</th>
-          <th>9M</th>
-          <th>180s</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {records.map((season, idx) => {
-          return (
-            <tr key={idx}>
-              <td className={styles.cell}>
-                <Link href={`/season/${convertSeasonToSlug(season.season)}`}>{season.season}</Link>
-              </td>
-              <td className={styles.cell}>{formatDivisionName(season.subdivision)}</td>
-              <td className={`${styles.cell} ${styles.rank}`}>{ordinalRank(season.rank)}</td>
-              {StatsRow(season)}
-            </tr>
-          );
-        })}
-      </tbody>
-      <tfoot>
-        <tr className={styles.footer}>
-          <th className={styles.footerCell} colSpan={3}></th>
-          {StatsRow(aggregate, true)}
-        </tr>
-      </tfoot>
-    </table>
+    <>
+      <table className={styles.stats}>
+        <thead>
+          <tr className={styles.header}>
+            <th>Season</th>
+            <th>Division</th>
+            <th>Rank</th>
+            <th>Matches</th>
+            <th>Legs</th>
+            <th>BP</th>
+            <th>MPR</th>
+            <th>3DA</th>
+            <th>9M</th>
+            <th>180s</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {records.map((season, idx) => {
+            return (
+              <tr key={idx}>
+                <td className={styles.cell}>
+                  <Link href={`/season/${convertSeasonToSlug(season.season)}`}>
+                    {season.season}
+                  </Link>
+                </td>
+                <td className={styles.cell}>{formatDivisionName(season.subdivision)}</td>
+                <td className={`${styles.cell} ${styles.rank}`}>{ordinalRank(season.rank)}</td>
+                {StatsRow(season)}
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          <tr className={styles.footer}>
+            <th className={styles.footerCell} colSpan={3}></th>
+            {StatsRow(aggregate, true)}
+          </tr>
+          <tr>
+            <td colSpan={11}>
+              <div className={styles.moreStats}>
+                <Link href={`/stats`}>More Stats »</Link>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </>
   );
 };
 

@@ -2,24 +2,30 @@ import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 import PlayerPage from "containers/PlayerPage";
-import { getCsvData } from "util/getCsvData";
+import { getCsvData, getCsvPlayers } from "util/getCsvData";
 import { convertNameToSlug } from "util/convertToSlug";
 import { GraphStats, PlayerSeason } from "types/season";
 import { calculateRecord, combinePlayerSeasons } from "util/recordMath";
+import { Player } from "types/player";
 
 type Props = {
   seasonRecords: PlayerSeason[];
   aggregatedRecords: GraphStats[];
+  playerRecord?: Player;
 };
 
-const Route = ({ seasonRecords, aggregatedRecords }: Props) => {
-  return <PlayerPage aggregated={aggregatedRecords} records={seasonRecords} />;
+const Route = ({ seasonRecords, aggregatedRecords, playerRecord }: Props) => {
+  return (
+    <PlayerPage aggregated={aggregatedRecords} records={seasonRecords} player={playerRecord} />
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const playerName = (params || {}).name;
   const data = await getCsvData();
   const seasonRecords = data.filter((row) => convertNameToSlug(row.player) === playerName);
+  const players = await getCsvPlayers();
+  const playerRecord = players.filter((row) => convertNameToSlug(row.name) === playerName);
 
   const aggregatedSeasons = data.reduce((mem, record) => {
     if (!record.season) {
@@ -49,6 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       seasonRecords,
       aggregatedRecords,
+      playerRecord,
     },
   };
 };

@@ -1,8 +1,10 @@
+import Logo from "components/Logo";
 import Link from "next/link";
 import React from "react";
 import { PlayerSeason } from "types/season";
 import { convertNameToSlug } from "util/convertToSlug";
 import { combinePlayerSeasons, calculateRecord } from "util/recordMath";
+import { ordinalRank } from "util/tableDisplay";
 
 import styles from "./index.module.css";
 
@@ -16,6 +18,7 @@ type TitlesProps = {
 };
 
 type LeaguewideProps = {
+  season: string;
   aggregate: PlayerSeason;
 };
 
@@ -34,16 +37,17 @@ type Slide = {
 const SeasonStatsTitles = ({ champion, divisions }: TitlesProps) => {
   return (
     <div className={styles.champions}>
-      {champion ? (
-        <div>
-          <div className={styles.champTitle}>Champion</div>
+      <div className={styles.season}></div>
+      <div className={styles.champRow}>
+        <div className={styles.champTitle}>Champion</div>
+        {champion ? (
           <span className={styles.champ}>
             <Link href={`/player/${convertNameToSlug(champion)}`}>{champion}</Link>
           </span>
-        </div>
-      ) : (
-        ""
-      )}
+        ) : (
+          <span className={styles.champ}>...</span>
+        )}
+      </div>
       {Object.entries(divisions).map(([title, winner], idx) => {
         return (
           <div key={idx}>
@@ -56,33 +60,36 @@ const SeasonStatsTitles = ({ champion, divisions }: TitlesProps) => {
   );
 };
 
-const LeaguewideStats = ({ aggregate }: LeaguewideProps) => {
+const LeaguewideStats = ({ season, aggregate }: LeaguewideProps) => {
   return (
-    <table className={styles.leaguewide}>
-      <thead>
-        <tr>
-          <th colSpan={2}>Leaguewide Stats</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Marks Per Round</td>
-          <td>{aggregate.cricket?.mpr?.toFixed(2)}</td>
-        </tr>
-        <tr>
-          <td>3 Dart Average</td>
-          <td>{aggregate.x01?.average?.toFixed(2)}</td>
-        </tr>
-        <tr>
-          <td>Checkout Rate</td>
-          <td>{`${((aggregate.x01?.checkoutRate || 0) * 100).toFixed(2)}%`}</td>
-        </tr>
-        <tr>
-          <td>9M + 180s</td>
-          <td>{(aggregate.x01?.t80 || 0) + (aggregate.cricket?.m9 || 0)}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <Logo />
+      <div className={styles.seasonTitle}>{season}</div>
+      <table className={styles.leaguewide}>
+        <tbody>
+          <tr>
+            <td>Marks Per Round</td>
+            <td>{aggregate.cricket?.mpr?.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>3 Dart Average</td>
+            <td>{aggregate.x01?.average?.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Checkout Rate</td>
+            <td>{`${((aggregate.x01?.checkoutRate || 0) * 100).toFixed(2)}%`}</td>
+          </tr>
+          <tr>
+            <td>9 Mark Turns</td>
+            <td>{aggregate.cricket?.m9 || 0}</td>
+          </tr>
+          <tr>
+            <td>180s</td>
+            <td>{aggregate.x01?.t80 || 0}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
@@ -109,6 +116,7 @@ const TopFives = ({ slides }: SlideProps) => {
           {slides[currentSlide].records.map((record, idx) => {
             return (
               <tr key={idx}>
+                <td>{ordinalRank(idx + 1)}</td>
                 <td>
                   <Link href={`/player/${convertNameToSlug(record.player)}`}>{record.player}</Link>
                 </td>
@@ -117,6 +125,13 @@ const TopFives = ({ slides }: SlideProps) => {
             );
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={3}>
+              <Link href={`/stats`}>More Stats »</Link>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
@@ -144,7 +159,7 @@ const SeasonStats = ({ records }: Props) => {
       title: "MPR",
       records: calcRecords
         .sort((a, b) => (b.cricket?.mpr || 0) - (a.cricket?.mpr || 0))
-        .slice(0, 5)
+        .slice(0, 7)
         .map((record) => ({
           player: record.player,
           value: (record.cricket?.mpr || 0).toFixed(2),
@@ -154,7 +169,7 @@ const SeasonStats = ({ records }: Props) => {
       title: "3DA",
       records: calcRecords
         .sort((a, b) => (b.x01?.average || 0) - (a.x01?.average || 0))
-        .slice(0, 5)
+        .slice(0, 7)
         .map((record) => ({
           player: record.player,
           value: (record.x01?.average || 0).toFixed(2),
@@ -164,23 +179,32 @@ const SeasonStats = ({ records }: Props) => {
       title: "CO%",
       records: calcRecords
         .sort((a, b) => (b.x01?.checkoutRate || 0) - (a.x01?.checkoutRate || 0))
-        .slice(0, 5)
+        .slice(0, 7)
         .map((record) => ({
           player: record.player,
           value: ((record.x01?.checkoutRate || 0) * 100).toFixed(2) + "%",
         })),
     },
     {
-      title: "Max",
+      title: "9Ms",
       records: calcRecords
-        .sort(
-          (a, b) =>
-            (b.x01?.t80 || 0) + (b.cricket?.m9 || 0) - ((a.x01?.t80 || 0) + (a.cricket?.m9 || 0))
-        )
-        .slice(0, 5)
+        .sort((a, b) => (b.cricket?.m9 || 0) - (a.cricket?.m9 || 0))
+        .slice(0, 7)
+        .filter((record) => (record.cricket?.m9 || 0) > 0)
         .map((record) => ({
           player: record.player,
-          value: ((record.x01?.t80 || 0) + (record.cricket?.m9 || 0)).toString(),
+          value: (record.cricket?.m9 || 0).toString(),
+        })),
+    },
+    {
+      title: "180s",
+      records: calcRecords
+        .sort((a, b) => (b.x01?.t80 || 0) - (a.x01?.t80 || 0))
+        .slice(0, 7)
+        .filter((record) => (record.x01?.t80 || 0) > 0)
+        .map((record) => ({
+          player: record.player,
+          value: (record.x01?.t80 || 0).toString(),
         })),
     },
   ];
@@ -188,11 +212,15 @@ const SeasonStats = ({ records }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.c3}>
-        <SeasonStatsTitles champion={champion && champion.player} divisions={divisions} />
+        <LeaguewideStats
+          season={records[0].season as string}
+          aggregate={calculateRecord(combinePlayerSeasons(records))}
+        />
       </div>
       <div className={styles.c3}>
-        <LeaguewideStats aggregate={calculateRecord(combinePlayerSeasons(records))} />
+        <SeasonStatsTitles champion={champion && champion.player} divisions={divisions} />
       </div>
+
       <div className={styles.c3}>
         <TopFives slides={slides} />
       </div>

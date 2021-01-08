@@ -1,6 +1,7 @@
 import BracketDisplay from "components/BracketDisplay";
 import SeasonStats from "components/SeasonStats";
 import SeasonTable from "components/SeasonTable";
+import TableLegend from "components/TableLegend";
 import React from "react";
 import { Match } from "types/match";
 import { PlayerSeason } from "types/season";
@@ -46,6 +47,10 @@ const SeasonPage = ({ playoffs, records }: Props) => {
                 </div>
               );
             })}
+
+          <div className={styles.legend}>
+            <TableLegend />
+          </div>
         </div>
         <div className={styles.column}>
           {Object.keys(brackets).map((key, idx) => {

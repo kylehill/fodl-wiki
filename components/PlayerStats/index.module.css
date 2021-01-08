@@ -1,6 +1,6 @@
 .stats {
   border-collapse: collapse;
-  width: 800px;
+  width: 100%;
 }
 
 .footerCell {
@@ -64,4 +64,8 @@
   border-right: none;
   min-width: 40px;
   padding: 0;
+}
+
+.moreStats {
+  text-align: right;
 }

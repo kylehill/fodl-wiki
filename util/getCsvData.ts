@@ -1,5 +1,6 @@
 import fs from "fs";
 import { Match, MatchType } from "types/match";
+import { Player } from "types/player";
 import { PlayerSeason, PlayoffColor, PlayoffTransition } from "types/season";
 
 export const convertCsvDataRow = (row: string): PlayerSeason => {
@@ -117,4 +118,27 @@ export const getCsvPlayoffs = async (): Promise<Match[]> => {
     .slice(1)
     .filter((row) => !row.startsWith(","))
     .map(convertCsvPlayoffRow);
+};
+
+export const convertCsvPlayerRow = (row: string): Player => {
+  const cells = row.split(",");
+
+  return {
+    name: cells[1],
+    location: cells[2],
+    darts: cells[3],
+    hashtag: cells[4],
+    twitter: cells[5],
+    bio: cells[6],
+  };
+};
+
+export const getCsvPlayers = async (): Promise<Player[]> => {
+  const text = await fs.promises.readFile(`${process.cwd()}/data/playoffs.csv`, "utf8");
+  const rows = text.split("\n");
+
+  return rows
+    .slice(1)
+    .filter((row) => !row.startsWith(","))
+    .map(convertCsvPlayerRow);
 };
