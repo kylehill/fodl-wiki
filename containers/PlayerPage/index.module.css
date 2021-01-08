@@ -29,10 +29,9 @@
 }
 
 .logo {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 20px auto;
+  display: block;
+  text-align: center;
 }
 
 .text {
@@ -46,10 +45,4 @@
   margin-bottom: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
-}
-
-@media (max-height: 850px) {
-  .logo {
-    display: none;
-  }
 }
