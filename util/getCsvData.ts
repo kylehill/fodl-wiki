@@ -43,7 +43,7 @@ export const convertCsvDataRow = (row: string): PlayerSeason => {
     };
   }
 
-  if (cells[14] !== "") {
+  if (cells[14] !== "" || cells[15] !== "") {
     record.playoff = {
       cricket: {
         W: Number(cells[14]),
