@@ -11,7 +11,6 @@ import PlayerDemographics from "components/PlayerDemographics";
 import Logo from "components/Logo";
 import { Player } from "types/player";
 import { ordinalRank } from "util/tableDisplay";
-import { convertNameToSlug } from "util/convertToSlug";
 
 type Props = {
   aggregated: GraphStats[];
@@ -45,10 +44,14 @@ const PlayerPage = ({ aggregated, records, player }: Props) => {
     return (a.rank as number) > (b.rank as number) ? 1 : -1;
   })[0];
 
+  const finishText = bestFinish.rank
+    ? `${ordinalRank(bestFinish.rank)} Place, FODL ${bestFinish.division}`
+    : "Rookie Season";
+
   return (
-    <div>
+    <div className={styles.page}>
       <div className={styles.columnLeft}>
-        <HexagonImage url={`/player_images/${convertNameToSlug(records[0].player)}.png`} />
+        {player?.url ? <HexagonImage url={`/player_images/${player.url}`} /> : <HexagonImage />}
         <PlayerDemographics
           name={records[0].player}
           stars={stars}
@@ -56,7 +59,7 @@ const PlayerPage = ({ aggregated, records, player }: Props) => {
           location={player?.location}
           twitter={player?.twitter}
           hashtag={player?.hashtag}
-          finish={`${ordinalRank(bestFinish.rank)} Place, FODL ${bestFinish.division}`}
+          finish={finishText}
         />
         <div className={styles.logo}>
           <Logo size={120} />

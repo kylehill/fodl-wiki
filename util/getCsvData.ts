@@ -127,15 +127,26 @@ export const convertCsvPlayerRow = (row: Record<string, string>): Player => {
     location: row.location,
     darts: row.darts,
     hashtag: row.hashtag,
-    twitter: row.twitter,
+    twitter: row.twitter.replace(/@/g, ""),
     bio: row.bio,
+    url: row.url,
   };
 };
 
 export const getCsvPlayers = async (): Promise<Player[]> => {
   const text = await fs.promises.readFile(`${process.cwd()}/data/players.csv`, "utf8");
   const cells = await neatCsv(text, {
-    headers: ["timestamp", "name", "location", "darts", "hashtag", "twitter", "bio"],
+    headers: [
+      "timestamp",
+      "name",
+      "location",
+      "darts",
+      "hashtag",
+      "twitter",
+      "bio",
+      "ignore",
+      "url",
+    ],
   });
 
   return cells.map(convertCsvPlayerRow);

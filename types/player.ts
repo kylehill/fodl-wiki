@@ -5,4 +5,5 @@ export type Player = {
   hashtag: string;
   twitter: string;
   bio: string;
+  url: string;
 };

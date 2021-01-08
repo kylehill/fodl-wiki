@@ -1,15 +1,24 @@
+.page {
+  display: table-row;
+  height: 100vh;
+}
+
 .columnLeft {
   width: 25%;
+  min-width: 100px;
   background: #333;
-  height: 100vh;
   box-shadow: 2px 2px #111;
-  position: absolute;
+  position: relative;
+  display: table-cell;
+  vertical-align: top;
 }
 
 .columnRight {
   width: 75%;
   margin-left: 25%;
   padding: 0 30px;
+  display: table-cell;
+  vertical-align: top;
 }
 
 .bio {
