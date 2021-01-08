@@ -1,30 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FODL Wiki
 
-## Getting Started
+A statically generated site detailing stats and past seasons of the [FO Dart League](http://fodartleague.com/).
 
-First, run the development server:
+### Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+It's a pretty basic Next.JS app built with TypeScript.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `yarn`: Install dependencies
+- `yarn dev`: Start server (localhost:3000)
+- `yarn test`: Run tests which don't exist yet as of this writing
+- `yarn storybook`: Start storybook for isolated component development
+- `yarn tsc`: Run type-check on the entire app
+- `yarn build`: Creates a production build; this command gets run by Vercel's CI so it's never necessary for a human to do, but can be useful
