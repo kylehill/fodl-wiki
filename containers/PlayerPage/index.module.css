@@ -4,8 +4,7 @@
 }
 
 .columnLeft {
-  width: 25%;
-  min-width: 100px;
+  width: 300px;
   background: #333;
   box-shadow: 2px 2px #111;
   position: relative;
@@ -14,8 +13,7 @@
 }
 
 .columnRight {
-  width: 75%;
-  margin-left: 25%;
+  width: calc(100vw - 300px);
   padding: 0 30px;
   display: table-cell;
   vertical-align: top;
