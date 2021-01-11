@@ -5,6 +5,7 @@ import { getCsvData, getCsvPlayoffs } from "util/getCsvData";
 import { convertSeasonToSlug } from "util/convertToSlug";
 import { PlayerSeason } from "types/season";
 import { Match } from "types/match";
+import { constants } from "util/constants";
 
 type Props = {
   playoffRecords: Match[];
@@ -17,8 +18,8 @@ const Route = ({ playoffRecords, seasonRecords }: Props) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const seasonName = (params || {}).season;
-  const data = await getCsvData();
-  const playoffs = await getCsvPlayoffs();
+  const data = await getCsvData(constants.dataLocation.seasons());
+  const playoffs = await getCsvPlayoffs(constants.dataLocation.playoffs());
 
   const seasonRecords = data.filter((row) => convertSeasonToSlug(row.season) === seasonName);
   const playoffRecords = playoffs.filter((row) => convertSeasonToSlug(row.season) === seasonName);
@@ -32,7 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getCsvData();
+  const data = await getCsvData(constants.dataLocation.seasons());
   const seasons = data.reduce((mem, season) => {
     if (season.season) {
       mem.add(season.season);

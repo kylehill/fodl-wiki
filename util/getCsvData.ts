@@ -88,8 +88,8 @@ export const convertCsvDataRow = (row: string): PlayerSeason => {
   return record;
 };
 
-export const getCsvData = async (): Promise<PlayerSeason[]> => {
-  const text = await fs.promises.readFile(`${process.cwd()}/data/data.csv`, "utf8");
+export const getCsvData = async (path: string): Promise<PlayerSeason[]> => {
+  const text = await fs.promises.readFile(path, "utf8");
   const rows = text.split("\n");
 
   return rows
@@ -111,8 +111,8 @@ export const convertCsvPlayoffRow = (row: string): Match => {
   };
 };
 
-export const getCsvPlayoffs = async (): Promise<Match[]> => {
-  const text = await fs.promises.readFile(`${process.cwd()}/data/playoffs.csv`, "utf8");
+export const getCsvPlayoffs = async (path: string): Promise<Match[]> => {
+  const text = await fs.promises.readFile(path, "utf8");
   const rows = text.split("\n");
 
   return rows
@@ -133,9 +133,10 @@ export const convertCsvPlayerRow = (row: Record<string, string>): Player => {
   };
 };
 
-export const getCsvPlayers = async (): Promise<Player[]> => {
-  const text = await fs.promises.readFile(`${process.cwd()}/data/players.csv`, "utf8");
+export const getCsvPlayers = async (path: string): Promise<Player[]> => {
+  const text = await fs.promises.readFile(path, "utf8");
   const cells = await neatCsv(text, {
+    skipLines: 1,
     headers: [
       "timestamp",
       "name",
@@ -144,7 +145,7 @@ export const getCsvPlayers = async (): Promise<Player[]> => {
       "hashtag",
       "twitter",
       "bio",
-      "ignore",
+      "_ignore",
       "url",
     ],
   });

@@ -7,6 +7,7 @@ import { convertNameToSlug } from "util/convertToSlug";
 import { GraphStats, PlayerSeason } from "types/season";
 import { calculateRecord, combinePlayerSeasons } from "util/recordMath";
 import { Player } from "types/player";
+import { constants } from "util/constants";
 
 type Props = {
   seasonRecords: PlayerSeason[];
@@ -30,9 +31,9 @@ const Route = ({ seasonRecords, aggregatedRecords, playerRecord }: Props) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const playerName = (params || {}).name;
-  const data = await getCsvData();
+  const data = await getCsvData(constants.dataLocation.seasons());
   const seasonRecords = data.filter((row) => convertNameToSlug(row.player) === playerName);
-  const players = await getCsvPlayers();
+  const players = await getCsvPlayers(constants.dataLocation.players());
   const playerRecord = players.filter((row) => convertNameToSlug(row.name) === playerName)[0];
 
   const aggregatedSeasons = data.reduce((mem, record) => {
@@ -71,7 +72,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getCsvData();
+  const data = await getCsvData(constants.dataLocation.seasons());
   const players = data.reduce((mem, season) => {
     mem.add(season.player);
     return mem;

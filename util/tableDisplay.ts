@@ -24,7 +24,10 @@ export const ordinalRank = (rank?: number): string => {
 };
 
 export const formatDivisionName = (subdivision?: string): string => {
-  return subdivision !== "Rookie" ? `FODL ${subdivision}` : "Rookie";
+  if (subdivision) {
+    return subdivision !== "Rookie" ? `FODL ${subdivision}` : "Rookie";
+  }
+  return "-";
 };
 
 export const showResultIcon = (result?: PlayoffResult): string => {

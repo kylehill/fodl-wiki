@@ -55,29 +55,40 @@ export const combinePlayerSeasons = (seasons: PlayerSeason[]): PlayerSeason => {
 };
 
 export const displayRecord = (regular?: SimpleRecord, playoff?: SimpleRecord): string => {
-  if (!(regular || playoff)) {
-    return "-";
+  if (regular && playoff) {
+    return `${regular.W + playoff.W}-${regular.L + playoff.L}${
+      regular.D !== 0 ? `-${regular.D + playoff.D}` : ""
+    }`;
   }
 
-  if (!(regular && playoff)) {
-    const record = (regular || playoff) as SimpleRecord;
+  if (regular && !playoff) {
+    const record = regular;
     return `${record.W}-${record.L}${record.D ? "-" + record.D : ""}`;
   }
 
-  return `${regular.W + playoff.W}-${regular.L + playoff.L}${
-    regular.D ? "-" + (regular.D + playoff.D) : ""
-  }`;
+  if (!regular && playoff) {
+    const record = playoff;
+    return `${record.W}-${record.L}${record.D ? "-" + record.D : ""}`;
+  }
+
+  return "-";
 };
 
 export const combineRecords = (x: (undefined | SimpleRecord)[]): string => {
+  if (x.length === 0) {
+    return displayRecord();
+  }
+
   return displayRecord(
     x.reduce((mem, rec) => {
-      if (!rec) {
-        return mem;
-      }
       if (!mem) {
         return rec;
       }
+
+      if (!rec) {
+        return mem;
+      }
+
       return addRecords(mem, rec);
     })
   );

@@ -5,6 +5,7 @@ module.exports = {
     "contexts/**/*.{js,jsx,ts,tsx}",
     "util/**/*.{js,jsx,ts,tsx}",
     "!**/stories.{js,jsx,ts,tsx}",
+    "!util/constants.ts",
   ],
   coverageDirectory: "<rootDir>/.coverage",
   setupFilesAfterEnv: ["<rootDir>/tests/setupTests.js"],
