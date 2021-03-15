@@ -19,7 +19,7 @@ const StatsPage = ({ records }: Props) => {
     }, new Set<string>()),
   ];
 
-  const divisions = ["A", "B", "C", "D"];
+  const divisions = ["A", "B", "C", "D", "E"];
 
   const [state, dispatch] = React.useReducer(
     reducer,
