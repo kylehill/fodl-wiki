@@ -32,21 +32,24 @@ const PlayerPage = ({ aggregated, records, player }: Props) => {
     return mem;
   }, 0);
 
-  const bestFinish = [...records].sort((a, b) => {
-    if (a.division !== b.division) {
-      if ((a.division as string) > (b.division as string)) {
-        return 1;
+  const bestFinish = [...records]
+    .filter((x) => !!x.rank)
+    .sort((a, b) => {
+      if (a.division !== b.division) {
+        if ((a.division as string) > (b.division as string)) {
+          return 1;
+        }
+
+        return -1;
       }
 
-      return -1;
-    }
+      return (a.rank as number) > (b.rank as number) ? 1 : -1;
+    })[0];
 
-    return (a.rank as number) > (b.rank as number) ? 1 : -1;
-  })[0];
-
-  const finishText = bestFinish.rank
-    ? `${ordinalRank(bestFinish.rank)} Place, FODL ${bestFinish.division}`
-    : "Rookie Season";
+  const finishText =
+    bestFinish && bestFinish.rank
+      ? `${ordinalRank(bestFinish.rank)} Place, FODL ${bestFinish.division}`
+      : "Rookie Season";
 
   return (
     <div className={styles.page}>
